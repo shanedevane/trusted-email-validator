@@ -62,4 +62,4 @@ target/
 .ipynb_checkpoints
 
 #pycharm
-workspace.xml
+.idea/
