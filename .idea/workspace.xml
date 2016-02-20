@@ -2,15 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f808f26a-d545-4c7a-9d29-e4eaed073492" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trusted_email_validator/data/email_providers_free.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/trusted_email_validator/data/email_providers_two_factor.txt" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/test_trusted_email_validator.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/test/valid_emails.txt" />
-      <change type="DELETED" beforePath="C:\trusted_email_validator\trusted_email_validator\trusted_email_validator\test\test_trusted_email_validator.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TODO.md" afterPath="$PROJECT_DIR$/TODO.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/trusted_email_validator/trusted_email_validator.py" afterPath="$PROJECT_DIR$/trusted_email_validator/trusted_email_validator.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="trusted_email_validator.iws" />
@@ -25,8 +18,9 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/trusted_email_validator$Unittest_NoMxRecordTests_test_should_return_valid_when_email_is_worst_tld_in_the_world.coverage" NAME="Unittest NoMxRecordTests.test_should_return_valid_when_email_is_worst_tld_in_the_world Coverage Results" MODIFIED="1455969340524" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/trusted_email_validator$Unittest_NoMxRecordTests_test_should_return_valid_when_email_is_worst_tld_in_the_world.coverage" NAME="Unittest NoMxRecordTests.test_should_return_valid_when_email_is_worst_tld_in_the_world Coverage Results" MODIFIED="1455971673976" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/trusted_email_validator$Unittest_NoMxRecordTests_test_should_return_invalid_when_domain_not_valid.coverage" NAME="Unittest NoMxRecordTests.test_should_return_invalid_when_domain_not_valid Coverage Results" MODIFIED="1455969984348" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/trusted_email_validator$Unittest_NoMxRecordTests_test_should_return_valid_when_email_includes_full_name_convention.coverage" NAME="Unittest NoMxRecordTests.test_should_return_valid_when_email_includes_full_name_convention Coverage Results" MODIFIED="1455972344958" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
     <SUITE FILE_PATH="coverage/trusted_email_validator$Unittest_NoMxRecordTests_test_should_return_valid_when_email_is_weird_but_valid.coverage" NAME="Unittest NoMxRecordTests.test_should_return_valid_when_email_is_weird_but_valid Coverage Results" MODIFIED="1455970880478" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
   </component>
   <component name="CreatePatchCommitExecutor">
@@ -40,15 +34,15 @@
     <splitter split-orientation="horizontal" split-proportion="0.57340896">
       <split-first>
         <leaf>
-          <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+          <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/README.md">
               <provider editor-type-id="MultiMarkdownFxPreviewEditor">
                 <state />
               </provider>
               <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
                 <state split_layout="FIRST">
-                  <first_editor vertical-scroll-proportion="0.34393063">
-                    <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
+                  <first_editor vertical-scroll-proportion="0.720121">
+                    <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
                     <folding />
                   </first_editor>
                   <second_editor />
@@ -63,53 +57,11 @@
               </provider>
               <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
                 <state split_layout="FIRST">
-                  <first_editor vertical-scroll-proportion="0.562406">
-                    <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+                  <first_editor vertical-scroll-proportion="0.7567568">
+                    <caret line="28" column="96" selection-start-line="28" selection-start-column="96" selection-end-line="28" selection-end-column="96" />
                     <folding />
                   </first_editor>
                   <second_editor />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="setup.py" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/setup.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="trusted_email_validator.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/trusted_email_validator/trusted_email_validator.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.5935754">
-                  <caret line="61" column="10" selection-start-line="61" selection-start-column="10" selection-end-line="61" selection-end-column="10" />
-                  <folding>
-                    <element signature="e#0#9#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="email_providers_two_factor.txt" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/trusted_email_validator/data/email_providers_two_factor.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="email_providers_free.txt" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/trusted_email_validator/data/email_providers_free.txt">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-8.827586">
-                  <caret line="2590" column="14" selection-start-line="2590" selection-start-column="14" selection-end-line="2590" selection-end-column="14" />
-                  <folding />
                 </state>
               </provider>
             </entry>
@@ -121,8 +73,8 @@
           <file leaf-file-name="test_trusted_email_validator.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/test/test_trusted_email_validator.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.4036313">
-                  <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.29694322">
+                  <caret line="12" column="45" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="45" />
                   <folding>
                     <element signature="e#0#15#0" expanded="true" />
                   </folding>
@@ -151,14 +103,14 @@
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/trusted_email_validator/email_providers_free.txt" />
         <option value="$PROJECT_DIR$/trusted_email_validator/email_providers_two_factor.txt" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/TODO.md" />
         <option value="$PROJECT_DIR$/trusted_email_validator/test/valid_emails.txt" />
         <option value="$PROJECT_DIR$/trusted_email_validator/test/test_trusted_email_validator.py" />
         <option value="$PROJECT_DIR$/test/__init__.py" />
         <option value="$PROJECT_DIR$/test/valid_emails.txt" />
-        <option value="$PROJECT_DIR$/test/test_trusted_email_validator.py" />
         <option value="$PROJECT_DIR$/trusted_email_validator/trusted_email_validator.py" />
+        <option value="$PROJECT_DIR$/test/test_trusted_email_validator.py" />
+        <option value="$PROJECT_DIR$/TODO.md" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -218,20 +170,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="trusted_email_validator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="trusted_email_validator" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -248,7 +186,7 @@
       <recent name="C:\trusted_email_validator\trusted_email_validator\trusted_email_validator\data" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.Unittest NoMxRecordTests.test_should_return_valid_when_email_is_weird_but_valid">
+  <component name="RunManager" selected="Python tests.Unittest NoMxRecordTests.test_should_return_valid_when_email_includes_full_name_convention">
     <configuration default="false" name="Unittest NoMxRecordTests.test_should_return_valid_when_email_is_worst_tld_in_the_world" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -309,6 +247,29 @@
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test_trusted_email_validator.py" />
       <option name="CLASS_NAME" value="NoMxRecordTests" />
       <option name="METHOD_NAME" value="test_should_return_valid_when_email_is_weird_but_valid" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_METHOD" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="Unittest NoMxRecordTests.test_should_return_valid_when_email_includes_full_name_convention" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="trusted_email_validator" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test/test_trusted_email_validator.py" />
+      <option name="CLASS_NAME" value="NoMxRecordTests" />
+      <option name="METHOD_NAME" value="test_should_return_valid_when_email_includes_full_name_convention" />
       <option name="FOLDER_NAME" value="" />
       <option name="TEST_TYPE" value="TEST_METHOD" />
       <option name="PATTERN" value="" />
@@ -500,16 +461,18 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
-    <list size="3">
+    <list size="4">
       <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest NoMxRecordTests.test_should_return_valid_when_email_is_worst_tld_in_the_world" />
       <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest NoMxRecordTests.test_should_return_invalid_when_domain_not_valid" />
       <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest NoMxRecordTests.test_should_return_valid_when_email_is_weird_but_valid" />
+      <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest NoMxRecordTests.test_should_return_valid_when_email_includes_full_name_convention" />
     </list>
     <recent_temporary>
-      <list size="3">
-        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest NoMxRecordTests.test_should_return_valid_when_email_is_weird_but_valid" />
-        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest NoMxRecordTests.test_should_return_invalid_when_domain_not_valid" />
-        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest NoMxRecordTests.test_should_return_valid_when_email_is_worst_tld_in_the_world" />
+      <list size="4">
+        <item index="0" class="java.lang.String" itemvalue="Python tests.Unittest NoMxRecordTests.test_should_return_valid_when_email_includes_full_name_convention" />
+        <item index="1" class="java.lang.String" itemvalue="Python tests.Unittest NoMxRecordTests.test_should_return_valid_when_email_is_worst_tld_in_the_world" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Unittest NoMxRecordTests.test_should_return_valid_when_email_is_weird_but_valid" />
+        <item index="3" class="java.lang.String" itemvalue="Python tests.Unittest NoMxRecordTests.test_should_return_invalid_when_domain_not_valid" />
       </list>
     </recent_temporary>
   </component>
@@ -544,7 +507,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996973" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996973" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25428858" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24924318" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15405117" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -574,7 +537,14 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/test/test_trusted_email_validator.py</url>
+          <line>8</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="10" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -606,40 +576,6 @@
         <state vertical-scroll-proportion="-8.827586">
           <caret line="2590" column="14" selection-start-line="2590" selection-start-column="14" selection-end-line="2590" selection-end-column="14" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TODO.md">
-      <provider editor-type-id="MultiMarkdownFxPreviewEditor">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
-        <state split_layout="FIRST">
-          <first_editor vertical-scroll-proportion="0.562406">
-            <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-            <folding />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0529595">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="MultiMarkdownFxPreviewEditor">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
-        <state split_layout="FIRST">
-          <first_editor vertical-scroll-proportion="0.34393063">
-            <caret line="14" column="14" selection-start-line="14" selection-start-column="14" selection-end-line="14" selection-end-column="14" />
-            <folding />
-          </first_editor>
-          <second_editor />
         </state>
       </provider>
     </entry>
@@ -699,23 +635,57 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/trusted_email_validator/trusted_email_validator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TODO.md">
+      <provider editor-type-id="MultiMarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor vertical-scroll-proportion="0.7567568">
+            <caret line="28" column="96" selection-start-line="28" selection-start-column="96" selection-end-line="28" selection-end-column="96" />
+            <folding />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/test/test_trusted_email_validator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4036313">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.29694322">
+          <caret line="12" column="45" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="45" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/trusted_email_validator/trusted_email_validator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5935754">
-          <caret line="61" column="10" selection-start-line="61" selection-start-column="10" selection-end-line="61" selection-end-column="10" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0529595">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="MultiMarkdownFxPreviewEditor">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="split-provider[text-editor;MultiMarkdownPreviewEditor]">
+        <state split_layout="FIRST">
+          <first_editor vertical-scroll-proportion="0.720121">
+            <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
+            <folding />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
