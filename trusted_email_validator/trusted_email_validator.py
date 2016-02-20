@@ -7,7 +7,7 @@ from collections import namedtuple
 
 
 class TrustedEmailValidator:
-    SIMPLE_EMAIL_REGEX = r"['_a-z0-9-\.]+@['a-z0-9-\.]+\.['_a-z0-9]{2,6}"
+    SIMPLE_EMAIL_REGEX = ".*?(['_a-z0-9-\.]+@['a-z0-9-\.]+\.['a-z0-9]{2,6})"
     EMAIL_REGEX = r"^[_a-z0-9-']+(\.['_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})$"
     PERFORM_DNS_LOOKUP = True
     DATA_FILE_FREE_PROVIDERS = ''
@@ -20,8 +20,11 @@ class TrustedEmailValidator:
 
     @staticmethod
     def clean_email(email):
-        parsed_email = re.match(TrustedEmailValidator.SIMPLE_EMAIL_REGEX, email, re.IGNORECASE)
-        parsed_email = parsed_email.group(1).strip()
+        if not email:
+            return email
+
+        reg = re.match(TrustedEmailValidator.SIMPLE_EMAIL_REGEX, email, re.IGNORECASE)
+        parsed_email = reg.group(1).strip()
         return parsed_email
 
     @classmethod
@@ -66,7 +69,11 @@ class TrustedEmailValidator:
         decision.checked = datetime.utcnow()
         decision.version = TrustedEmailValidator.SCRIPT_VERSION
 
-        if re.match(TrustedEmailValidator.EMAIL_REGEX, self.email, re.IGNORECASE):
+        if not self.email:
+            decision.is_valid = False
+            keep_progressing = False
+
+        if keep_progressing and re.match(TrustedEmailValidator.EMAIL_REGEX, self.email, re.IGNORECASE):
             decision.is_valid = True
         else:
             decision.is_valid = False
