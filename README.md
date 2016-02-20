@@ -8,7 +8,28 @@ Yet another email validator. The goal is to accomplish if an email address could
 
 This uses some of the common approaches for email validation that already exist but brings in additional
 checking via a 'trust' metric that takes the approach of business logic rules that would result in further
-trusting an email address. 
+trusting an email address.
+ 
+# Usage
+
+#### Quick Usage ####
+By default TrustedEmailValidator does a MX lookup
+```python
+TrustedEmailValidator.is_valid('firstname@companyname.com')
+```
+
+```python
+decision = TrustedEmailValidator('firstname@companyname.com')
+
+if decision:
+    print(decision)
+    print(decision.data)
+    
+>>> firstname@companyname.com is trusted
+>>> 
+```
+
+
 
 ## Regex Validation ##
 
@@ -25,17 +46,13 @@ Common DNS Mail Server LookUp
 ## Trust Rules##
 
 The trust rules incorporated into this project are kept at a minimum level so to provide a wider scope of uses.
-It is recommended to review them to understand the logic.
-
-
-
-
+It is recommended to review them to understand if the business logic is valid for your context.
 
 ## References
 
-###### awesome work on classifying free emails
+**awesome work on classifying free emails**
 https://github.com/willwhite/freemail
 
-###### good concept
+**good concept**
 https://github.com/uploadcare/intercom-rank
 

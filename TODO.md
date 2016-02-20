@@ -20,3 +20,10 @@ SMTP connection, catch-all check: Now for the meaty part, but also the most risk
 
 # be cool to be able to pull and update the latest data sets
 
+
+
+
+
+#' be cool to have a metric based on regex, and have an assigned metric of 0.25 if the regex passes
+# have a set of core validation  metrics
+# be able to have the metric compairable even if there's 3 rules vs 30 rules 'normalised metric'
