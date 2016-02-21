@@ -11,6 +11,11 @@ https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
 https://guides.github.com/features/mastering-markdown/
 
 
+# practical aim, to decide based on some workflow if it's worth doing
+# extra validation of a user, ie. mobile txt etc.
+# or whether or not to email them a welcome email or something else etc. etc.
+
+
 
 
 https://www.quora.com/Is-there-a-way-to-check-if-an-e-mail-address-is-valid-without-e-mailing-it
