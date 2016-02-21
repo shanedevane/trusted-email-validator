@@ -1,9 +1,12 @@
 import re
 import os
 import socket
+import json
 from dns import resolver, exception
-from datetime import datetime
+import datetime
 from collections import namedtuple
+from bson import json_util
+from time import mktime
 
 
 class TrustedEmailValidator:
@@ -13,16 +16,25 @@ class TrustedEmailValidator:
     DATA_FILE_FREE_PROVIDERS = os.path.join(DIRECTORY, './data/email_providers_free.txt')
     DATA_FILE_TWO_FACTOR = os.path.join(DIRECTORY, './data/email_providers_two_factor.txt')
     SCRIPT_VERSION = 1
+    JSON_INDENT = 4
     FREE_PROVIDERS_MEMORY = list()
     TWO_FACTOR_PROVIDERS_MEMORY = list()
     Data = namedtuple('Data', 'email hostname username checked version is_valid is_email is_free is_trusted '
                                       'has_mx mx_record mx_amount bad_mx_lookup lookup_mx_exception ')
+
+    class JSONEncoder(json.JSONEncoder):
+        def default(self, o):
+            if isinstance(o, datetime.datetime):
+                return int(mktime(o.timetuple()))
+
+            return json.JSONEncoder(self, o)
 
     def __init__(self, email):
         self.email = self.clean_email(email)
         self.hostname = self.get_hostname(self.email)
         self.username = self.get_username(self.email)
         self.mx_records = list()
+        self.data = None
 
         if not TrustedEmailValidator.FREE_PROVIDERS_MEMORY:
             TrustedEmailValidator.FREE_PROVIDERS_MEMORY = \
@@ -81,15 +93,10 @@ class TrustedEmailValidator:
     def trust_rules(data):
         pass
 
-    def as_dict(self):
-        self.execute()
-        data = self.data._asdict()
-        data.update(self.mx_records)
-        return data
-
-    # use strategy pattern to decide no dns lookup?
-
     def execute(self):
+        if self.data:
+            return self.data
+
         is_valid = False
         is_email = False
         is_free = False
@@ -116,8 +123,10 @@ class TrustedEmailValidator:
                 for i, record in enumerate(mx_records):
                     has_mx = True
                     if i == 0:
-                        mx_record = (record.exchange, record.preference)
-                    self.mx_records.append((record.exchange, record.preference))
+                        mx_record = (str(record.exchange), int(record.preference))
+
+
+                    self.mx_records.append((str(record.exchange), int(record.preference)))
 
                 is_valid = True
 
@@ -133,7 +142,7 @@ class TrustedEmailValidator:
             self.email,
             self.hostname,
             self.username,
-            datetime.utcnow(),
+            datetime.datetime.utcnow(),
             TrustedEmailValidator.SCRIPT_VERSION,
             is_valid,
             is_email,
@@ -148,5 +157,26 @@ class TrustedEmailValidator:
 
         return self.data
 
+    def re_execute(self):
+        self.data = None
+        self.execute()
+        return self
+
+    def as_dict(self):
+        self.execute()
+        d = self.data._asdict()      # _asdict() not protected, just named badly
+        d.update(self.mx_records)
+        return d
+
+    def as_json(self):
+        self.execute()
+        d = self.data._asdict()
+        d.update(self.mx_records)
+        return json.dumps(d,
+                          cls=TrustedEmailValidator.JSONEncoder,
+                          default=json_util.default,
+                          indent=TrustedEmailValidator.JSON_INDENT)
+
 if __name__ == "__main__":
-    TrustedEmailValidator.is_valid('bill@microsoft.com')
+    e = TrustedEmailValidator('bill@microsoft.com')
+    print(e.as_json())

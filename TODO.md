@@ -1,6 +1,11 @@
-
 # ignore this file
 # this is where the mess is
+
+
+# TODO
+# allow command line usage (output to json, console and dict)
+
+
 
 
 # MOCK OUT MX RECORD REPONSE FROM GMAIL!
