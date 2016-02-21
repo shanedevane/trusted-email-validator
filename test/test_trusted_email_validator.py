@@ -2,15 +2,21 @@ import unittest
 from trusted_email_validator.trusted_email_validator import TrustedEmailValidator
 
 
-class NoMxRecordTests(unittest.TestCase):
-    # def test_should_return_invalid_when_domain_not_valid(self):
-    #     self.assertFalse(TrustedEmailValidator.is_valid('testing@dom[]ain.com'))
+class MxRecordTests(unittest.TestCase):
+    def test_should_return_valid_when_email_has_valid_mx(self):
+        self.assertTrue(TrustedEmailValidator.is_valid('bill@microsoft.com'))
+
+    def test_should_return_invalid_when_domain_not_valid(self):
+        self.assertFalse(TrustedEmailValidator.is_valid('testing@dom[]ain.com'))
 
     # def test_should_return_invalid_when_email_has_no_mx(self):
     #     self.assertFalse(TrustedEmailValidator.is_valid('testing@domain.com'))
 
     def test_should_return_valid_when_email_is_weird_but_valid(self):
-        self.assertTrue(TrustedEmailValidator.is_valid("tes'ting@domain.com "))
+        self.assertTrue(TrustedEmailValidator.is_valid("tes'ting@gmail.com"))
+
+    def test_should_return_valid_when_email_ends_in_space(self):
+        self.assertTrue(TrustedEmailValidator.is_valid("testing@gmail.com "))
 
     def test_should_return_invalid_when_no_email_is_passed(self):
         self.assertFalse(TrustedEmailValidator.is_valid(""))
@@ -26,7 +32,7 @@ class NoMxRecordTests(unittest.TestCase):
                         ("This is something that I want to do thingy@gmail.com."))
 
     def test_should_return_valid_when_email_is_worst_tld_in_the_world(self):
-        self.assertTrue(TrustedEmailValidator.is_valid("shane@thisthing.museum"))
+        self.assertTrue(TrustedEmailValidator.is_valid("shane@ima.museum"))
 
     def test_should_return_valid_when_mx_checking_is_off(self):
         pass

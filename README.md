@@ -48,6 +48,11 @@ Common DNS Mail Server LookUp
 The trust rules incorporated into this project are kept at a minimum level so to provide a wider scope of uses.
 It is recommended to review them to understand if the business logic is valid for your context.
 
+## What it doesn't do ##
+
+This does not try to initiate a connection to the users mail server to see if the email username exists. This is an
+unreliable metric as many mail servers by default to not respond to it. ie. Exchange.
+
 ## References
 
 **awesome work on classifying free emails**

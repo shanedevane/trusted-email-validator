@@ -1,8 +1,9 @@
 # there is no magic here
 # list of free providers
 # http://www.joewein.net/spam/spam-freemailer.htm
-
-
+gmail.com
+hotmail.com
+yahoo.com
 123.com
 123box.net
 123india.com

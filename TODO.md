@@ -1,7 +1,24 @@
+
+# ignore this file
+# this is where the mess is
+
+
+# MOCK OUT MX RECORD REPONSE FROM GMAIL!
+
+#have 1 actual end-to-end test
+
+https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
+https://guides.github.com/features/mastering-markdown/
+
+
+
+
 https://www.quora.com/Is-there-a-way-to-check-if-an-e-mail-address-is-valid-without-e-mailing-it
 
+https://www.emailhippo.com/en-US/verify-email-address/api/a
 
 
+https://gist.github.com/tbrianjones/5992856
 
 
 
