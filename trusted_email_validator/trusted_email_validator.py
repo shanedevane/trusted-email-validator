@@ -9,15 +9,13 @@ from collections import namedtuple
 class TrustedEmailValidator:
     SIMPLE_EMAIL_REGEX = ".*?(['_a-z0-9-\.]+@['a-z0-9-\.]+\.['a-z0-9]{2,6})"
     EMAIL_REGEX = r"^[_a-z0-9-']+(\.['_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})$"
-    script_dir = os.path.dirname(__file__)
-    DATA_FILE_FREE_PROVIDERS = os.path.join(script_dir, './data/email_providers_free.txt')
-    DATA_FILE_TWO_FACTOR = os.path.join(script_dir, './data/email_providers_two_factor.txt')
+    DIRECTORY = os.path.dirname(__file__)
+    DATA_FILE_FREE_PROVIDERS = os.path.join(DIRECTORY, './data/email_providers_free.txt')
+    DATA_FILE_TWO_FACTOR = os.path.join(DIRECTORY, './data/email_providers_two_factor.txt')
     SCRIPT_VERSION = 1
-    DNS_CACHE = {}
     FREE_PROVIDERS_MEMORY = list()
     TWO_FACTOR_PROVIDERS_MEMORY = list()
-
-    Decision = namedtuple('Decision', 'email hostname username checked version is_valid is_email is_free is_trusted '
+    Data = namedtuple('Data', 'email hostname username checked version is_valid is_email is_free is_trusted '
                                       'has_mx mx_record mx_amount bad_mx_lookup lookup_mx_exception ')
 
     def __init__(self, email):
@@ -123,7 +121,7 @@ class TrustedEmailValidator:
 
                 is_valid = True
 
-            except (socket.error, exception.Timeout, resolver.NXDOMAIN, resolver.NoNameservers) as e:
+            except (socket.error, exception.Timeout, resolver.NXDOMAIN, resolver.NoNameservers, resolver.NoAnswer) as e:
                 bad_mx_lookup = True
                 lookup_mx_exception = str(e)
                 keep_processing = False
@@ -131,7 +129,7 @@ class TrustedEmailValidator:
         if keep_processing:
             is_trusted = False
 
-        self.decision = TrustedEmailValidator.Decision(
+        self.data = TrustedEmailValidator.Data(
             self.email,
             self.hostname,
             self.username,
@@ -148,9 +146,7 @@ class TrustedEmailValidator:
             lookup_mx_exception
         )
 
-        print(self.decision)
-
-        return self.decision
+        return self.data
 
 if __name__ == "__main__":
     TrustedEmailValidator.is_valid('bill@microsoft.com')

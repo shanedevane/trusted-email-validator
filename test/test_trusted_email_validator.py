@@ -9,8 +9,8 @@ class MxRecordTests(unittest.TestCase):
     def test_should_return_invalid_when_domain_not_valid(self):
         self.assertFalse(TrustedEmailValidator.is_valid('testing@dom[]ain.com'))
 
-    # def test_should_return_invalid_when_email_has_no_mx(self):
-    #     self.assertFalse(TrustedEmailValidator.is_valid('testing@domain.com'))
+    def test_should_return_invalid_when_email_has_no_mx(self):
+        self.assertFalse(TrustedEmailValidator.is_valid('testing@example.com'))
 
     def test_should_return_valid_when_email_is_weird_but_valid(self):
         self.assertTrue(TrustedEmailValidator.is_valid("tes'ting@gmail.com"))
