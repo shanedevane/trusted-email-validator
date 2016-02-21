@@ -83,7 +83,7 @@ class TrustedEmailValidator:
 
     def as_dict(self):
         self.execute()
-        data = self.decision._asdict()
+        data = self.data._asdict()
         data.update(self.mx_records)
         return data
 
