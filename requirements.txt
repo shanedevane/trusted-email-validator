@@ -1,3 +1,2 @@
 pytest
 dnspython3
-bson

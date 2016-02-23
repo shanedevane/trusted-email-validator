@@ -3,6 +3,7 @@ from trusted_email_validator.trusted_email_validator import TrustedEmailValidato
 
 
 class MxRecordTests(unittest.TestCase):
+
     def test_should_return_valid_when_email_has_valid_mx(self):
         self.assertTrue(TrustedEmailValidator.is_valid('bill@microsoft.com'))
 
