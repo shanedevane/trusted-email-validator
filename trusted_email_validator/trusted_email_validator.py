@@ -9,24 +9,32 @@ from bson import json_util
 from time import mktime
 
 
+
+
 class TrustedEmailValidator:
+    SCRIPT_VERSION = 1
+    JSON_INDENT = 4
     SIMPLE_EMAIL_REGEX = ".*?(['_a-z0-9-\.]+@['a-z0-9-\.]+\.['a-z0-9]{2,6})"
     EMAIL_REGEX = r"^[_a-z0-9-']+(\.['_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})$"
     DIRECTORY = os.path.dirname(__file__)
     DATA_FILE_FREE_PROVIDERS = os.path.join(DIRECTORY, './data/email_providers_free.txt')
     DATA_FILE_TWO_FACTOR = os.path.join(DIRECTORY, './data/email_providers_two_factor.txt')
-    SCRIPT_VERSION = 1
-    JSON_INDENT = 4
+    DATA_FILE_COMMON_USERNAMES = os.path.join(DIRECTORY, './data/username_common_groups.txt')
     FREE_PROVIDERS_MEMORY = list()
     TWO_FACTOR_PROVIDERS_MEMORY = list()
-    Data = namedtuple('Data', 'email hostname username checked version is_valid is_email is_free is_trusted '
-                                      'has_mx mx_record mx_amount bad_mx_lookup lookup_mx_exception ')
+    COMMON_USERNAMES_MEMORY = list()
+
+    meta_data_fields = 'email hostname username checked version'.split()
+    mx_fields = 'has_mx mx_record mx_amount bad_mx_lookup lookup_mx_exception'.split()
+    quality_fields = 'is_valid is_email is_free is_trusted is_common_usernanme'.split()
+    Data = namedtuple('Data', meta_data_fields + mx_fields + quality_fields)
+
+    TrustRule = namedtuple('TrustRule', 'regex reason data')
 
     class JSONEncoder(json.JSONEncoder):
         def default(self, o):
             if isinstance(o, datetime.datetime):
                 return int(mktime(o.timetuple()))
-
             return json.JSONEncoder(self, o)
 
     def __init__(self, email):
@@ -35,14 +43,9 @@ class TrustedEmailValidator:
         self.username = self.get_username(self.email)
         self.mx_records = list()
         self.data = None
-
-        if not TrustedEmailValidator.FREE_PROVIDERS_MEMORY:
-            TrustedEmailValidator.FREE_PROVIDERS_MEMORY = \
-                [host.rstrip() for host in open(TrustedEmailValidator.DATA_FILE_FREE_PROVIDERS) if not host.startswith('#')]
-
-        if not TrustedEmailValidator.TWO_FACTOR_PROVIDERS_MEMORY:
-            TrustedEmailValidator.TWO_FACTOR_PROVIDERS_MEMORY = \
-                [host.rstrip() for host in open(TrustedEmailValidator.DATA_FILE_TWO_FACTOR) if not host.startswith('#')]
+        self.trust_rating = None
+        self.trust_rules_matched = list()
+        self.trust_rules = list()
 
     @staticmethod
     def clean_email(email):
@@ -89,13 +92,46 @@ class TrustedEmailValidator:
             if self.hostname == hostname:
                 return True
 
+    def is_username_in_common_usernames(self):
+        for username in TrustedEmailValidator.COMMON_USERNAMES_MEMORY:
+            if self.username == username:
+                return True
+
     @staticmethod
-    def trust_rules(data):
+    def lazy_read_data_files():
+        if not TrustedEmailValidator.FREE_PROVIDERS_MEMORY:
+            TrustedEmailValidator.FREE_PROVIDERS_MEMORY = \
+                [host.rstrip() for host in open(TrustedEmailValidator.DATA_FILE_FREE_PROVIDERS) if not host.startswith('#')]
+
+        if not TrustedEmailValidator.COMMON_USERNAMES_MEMORY:
+            TrustedEmailValidator.COMMON_USERNAMES_MEMORY = \
+                [username.rstrip() for username in open(TrustedEmailValidator.DATA_FILE_COMMON_USERNAMES) if not username.startswith('#')]
+
+        if not TrustedEmailValidator.TWO_FACTOR_PROVIDERS_MEMORY:
+            TrustedEmailValidator.TWO_FACTOR_PROVIDERS_MEMORY = \
+                [host.rstrip() for host in open(TrustedEmailValidator.DATA_FILE_TWO_FACTOR) if not host.startswith('#')]
+
+    def init_trust_rules(self):
+        self.trust_rules.append((r'1', 'few mail servers', self.data.mx_amount))
+        self.trust_rules.append((r'.*?[0-9].*?@.*?', 'numbers in username', self.username))
+        self.trust_rules.append((r'.*?[A-Z][a-z].*?@.*?', 'mixed case in username', self.username))
+
+    def run_trust_rules(self):
+        for rule in self.trust_rules:
+            pass
+
+    def execute_trust_rule(self, regex, reason, data=None):
+        if re.match(regex, data):
+            self.trust_rules_matched.append(reason)
+
+    def calc_trust_rating(self):
         pass
 
     def execute(self):
         if self.data:
             return self.data
+
+        TrustedEmailValidator.lazy_read_data_files()
 
         is_valid = False
         is_email = False
@@ -107,6 +143,7 @@ class TrustedEmailValidator:
         lookup_mx_exception = None
         is_trusted = False
         keep_processing = True
+        is_common = False
 
         if re.match(TrustedEmailValidator.EMAIL_REGEX, self.email, re.IGNORECASE):
             is_email = True
@@ -115,6 +152,7 @@ class TrustedEmailValidator:
 
         if keep_processing:
             is_free = self.is_hostname_in_free()
+            is_common = self.is_username_in_common_usernames()
 
             try:
                 mx_records = resolver.query(self.hostname, 'MX', tcp=True)
@@ -144,15 +182,18 @@ class TrustedEmailValidator:
             self.username,
             datetime.datetime.utcnow(),
             TrustedEmailValidator.SCRIPT_VERSION,
-            is_valid,
-            is_email,
-            is_free,
-            is_trusted,
+
             has_mx,
             mx_record,
             mx_amount,
             bad_mx_lookup,
-            lookup_mx_exception
+            lookup_mx_exception,
+
+            is_valid,
+            is_email,
+            is_free,
+            is_trusted,
+            is_common,
         )
 
         return self.data
