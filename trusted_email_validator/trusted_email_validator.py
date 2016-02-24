@@ -112,12 +112,16 @@ class TrustedEmailValidator(object):
         if not cls._FREE_PROVIDERS_MEMORY:
             cls._cache_load += 1
             return [host.rstrip() for host in open(cls._data_file_free_providers) if not host.startswith('#')]
+        else:
+            return cls._FREE_PROVIDERS_MEMORY
 
     @classmethod
     def _var_load_common_user_names(cls):
         if not cls._COMMON_USERNAMES_MEMORY:
             cls._cache_load += 1
             return [username.rstrip() for username in open(cls._data_file_common_usernames) if not username.startswith('#')]
+        else:
+            return cls._COMMON_USERNAMES_MEMORY
 
     def _run_trust_rules(self):
         self._init_trust_rules()
@@ -140,6 +144,15 @@ class TrustedEmailValidator(object):
 
         TrustedEmailValidator.lazy_load_data_files()
 
+        bad_mx_lookup = None
+        lookup_mx_exception = None
+        mx_record = (None, None)
+        mx_amount = 0
+        has_mx = False
+        is_email = False
+        is_valid = False
+        is_free = False
+        is_common = False
         keep_processing = True
 
         self.data_meta = TrustedEmailValidator._MetaData(
@@ -149,7 +162,6 @@ class TrustedEmailValidator(object):
             self.enable_mx_lookup, self.trust_cut_off
         )
 
-        is_email = False
         if self.email:
             if re.match(self.email_regex, self.email, re.IGNORECASE):
                 is_email = True
@@ -157,15 +169,6 @@ class TrustedEmailValidator(object):
                 keep_processing = False
         else:
             keep_processing = False
-
-        bad_mx_lookup = None
-        lookup_mx_exception = None
-        mx_record = (None, None)
-        mx_amount = 0
-        has_mx = False
-        is_valid = False
-        is_free = False
-        is_common = False
 
         if keep_processing:
             is_free = self._is_hostname_in_free()
