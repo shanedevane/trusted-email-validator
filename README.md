@@ -1,5 +1,11 @@
 # Trusted Email Validator
+
+.. image:: https://secure.travis-ci.org/shanedevane/trusted-email-validator.png?branch=master
+  :target: http://travis-ci.org/shanedevane/trusted-email-validator
+  
 Validates an email address using regex and smtp mx record checking and assigns a level of 'trust'
+
+
 
 # About
 
