@@ -9,7 +9,6 @@ class TrustRatingTests(unittest.TestCase):
     def test_should_return_not_trusted_when_bad_email(self):
         validator = TrustedEmailValidator('Bill_990@gmail.com')
         data = validator.execute()
-        print(validator.trust_issues)
         self.assertFalse(data.is_trusted)
 
     def test_should_return_trusted_when_email_is_good(self):
@@ -17,4 +16,10 @@ class TrustRatingTests(unittest.TestCase):
         data = validator.execute()
         print(validator.trust_issues)
         print(validator.trust_rating)
+        self.assertTrue(data.is_trusted)
+
+    def test_should_return_trusted_when_custom_trust_cut_off_is_set(self):
+        validator = TrustedEmailValidator('Bill_990@gmail.com')
+        validator.trust_cut_off = 10
+        data = validator.execute()
         self.assertTrue(data.is_trusted)

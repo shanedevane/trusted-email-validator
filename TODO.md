@@ -1,12 +1,16 @@
-# ignore this file
-# this is where the mess is
-
+# ignore this file - this is where the mess is
 
 # TODO
 # allow command line usage (output to json, console and dict)
 
+# MOCK OUT UNIT TESTS INSTEAD OF DOING MX LOOKUP!
 
-
+# OTHER RULES
+# upper case name if it's included is weird
+# if single word person name 'MADDONNA' then no trust
+# what is a good name and email address??
+# max trust firstname.lastname@companyname.com
+# firstinitiallastname@companyname.com
 
 # MOCK OUT MX RECORD REPONSE FROM GMAIL!
 
@@ -36,7 +40,7 @@ https://gist.github.com/tbrianjones/5992856
 
 
 
- I've been in this business for a long while, and I've built a little step-by-step guide for how to achieve proper email validation without negatively effecting the UX, and I am going to divulge it here:
+I've been in this business for a long while, and I've built a little step-by-step guide for how to achieve proper email validation without negatively effecting the UX, and I am going to divulge it here:
 
 Syntax Validation: The most obvious part, people - however - know least about. There's more to email syntax validation than the simple PHP RegEx rule you're using. There's the IETF Standards (all the RFCs), but you'll also have to look at ISP-specific syntax checking, quoted words, domain literals, non-ASCII domains, etc.
 Disposable & Free Emails: Next, before you use any server side code to check the given email address, it's recommended to check whether or not you're dealing with disposable emails (e.g. mailinator.com) or free emails (Gmail, Yahoo!, etc.) and act accordingly.
@@ -47,11 +51,7 @@ SMTP connection, catch-all check: Now for the meaty part, but also the most risk
 
 
 
-
-
 # be cool to be able to pull and update the latest data sets
-
-
 
 
 

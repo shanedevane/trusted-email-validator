@@ -2,7 +2,29 @@ import unittest
 from trusted_email_validator.trusted_email_validator import TrustedEmailValidator
 
 
-class MxRecordTests(unittest.TestCase):
+class BasicClientIntegrationTests(unittest.TestCase):
+    """
+    This tests class is for coverage of the methods that clients
+    can call to use TrustedEmailValidator
+    """
+
+    def test_should_work_when_is_valid_is_called(self):
+        self.assertTrue(TrustedEmailValidator.is_valid("email@gmail.com"))
+
+    def test_should_work_when_is_free_is_called(self):
+        self.assertTrue(TrustedEmailValidator.is_free("email@gmail.com"))
+
+    def test_should_work_when_re_executed(self):
+        validator = TrustedEmailValidator('joesoap@gmail.com')
+        first_created_time = validator.as_dict()["checked"]
+        second_created_time = validator.as_dict()["checked"]
+
+        validator = validator.re_execute()
+
+        third_created_time = validator.as_dict()["checked"]
+
+        self.assertEqual(first_created_time, second_created_time)
+        self.assertNotEqual(second_created_time, third_created_time)
 
     def test_should_return_valid_when_email_has_valid_mx(self):
         self.assertTrue(TrustedEmailValidator.is_valid('bill@microsoft.com'))
@@ -35,36 +57,10 @@ class MxRecordTests(unittest.TestCase):
     def test_should_return_valid_when_email_is_worst_tld_in_the_world(self):
         self.assertTrue(TrustedEmailValidator.is_valid("shane@ima.museum"))
 
-    def test_should_return_valid_when_mx_checking_is_off(self):
-        pass
-
-    def test_should_return_invalid_when_regex_not_match(self):
-        pass
-
-    def test_should_return_soft_valid_when_regex_not_match(self):
-        pass
-
     def test_should_return_mx_records_when_looked_up(self):
-        pass
-
-    def test_should_fix_common_type_when_common_domain_is_wrong(self):
         pass
 
     def test_should_not_do_mx_when_email_is_common_domain_and_mx_not_wanted(self):
         pass
 
-
-
-# (usernames with numbers in them!)
-# weird characters at the start are weird
-# ALL UPPERCASE IS ALSO WEIRD
-# upper case name if it's included is weird
-# if free email account, and weird numbers then no trust
-# if free, and looks good, then cool
-# if single word person name 'MADDONNA' then no trust
-
-# what is a good name and email address??
-
-# max trust firstname.lastname@companyname.com
-# firstinitiallastname@companyname.com
 

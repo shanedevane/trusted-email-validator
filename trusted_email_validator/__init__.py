@@ -7,4 +7,5 @@ __email__ = 'sd@shanedevane.net'
 __status__ = "Prototype"    # Prototype|Development|Production
 __all__ = [
     'TrustedEmailValidator',
+    'JSONEncoder'
 ]
