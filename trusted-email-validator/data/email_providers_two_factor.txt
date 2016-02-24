@@ -1,0 +1,4 @@
+# providers that only give email address after two-factor authentication
+# or some other form of stronger validation
+# ie. Paid providers are considered 'two factor'
+sneakemail.com
