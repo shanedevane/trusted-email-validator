@@ -12,7 +12,7 @@ from trusted_email_validator.JSONEncoder import JSONEncoder
 class TrustedEmailValidator(object):
     trust_cut_off = 60
     json_indent = 4
-    skip_mx_lookup = False
+    enable_mx_lookup = True
 
     def __init__(self, email):
         self.email = str(email)
@@ -43,7 +43,7 @@ class TrustedEmailValidator(object):
     _mx_fields = 'has_mx mx_record mx_amount bad_lookup lookup_exception'.split()
     _is_fields = 'is_valid is_email is_free is_common'.split()
     _trust_fields = 'is_trusted trust_rating'.split()
-    _config_fields = 'skip_mx_lookup trust_cut_off'.split()
+    _config_fields = 'enable_mx_lookup trust_cut_off'.split()
     _MetaData = collections.namedtuple('MetaData', _meta_fields)
     _MxData = collections.namedtuple('MxData', _mx_fields)
     _IsData = collections.namedtuple('IsData', _is_fields)
@@ -62,21 +62,21 @@ class TrustedEmailValidator(object):
         self.trust_rules.append((r"^[^A-Za-z]+", 'non letter at start', self.username))
 
     @classmethod
-    def is_valid(cls, email, skip_mx=False):
+    def is_valid(cls, email, enable_mx=True):
         email_valid = cls(email)
-        email_valid.skip_mx_lookup = skip_mx
+        email_valid.enable_mx_lookup = enable_mx
         return email_valid.execute().is_valid
 
     @classmethod
-    def is_free(cls, email, skip_mx=False):
+    def is_free(cls, email, enable_mx=True):
         email_valid = cls(email)
-        email_valid.skip_mx_lookup = skip_mx
+        email_valid.enable_mx_lookup = enable_mx
         return email_valid.execute().is_free
 
     @classmethod
-    def is_trusted(cls, email, skip_mx=False):
+    def is_trusted(cls, email, enable_mx=True):
         email_valid = cls(email)
-        email_valid.skip_mx_lookup = skip_mx
+        email_valid.enable_mx_lookup = enable_mx
         return email_valid.execute().is_trusted
 
     def _clean_email(self):
@@ -109,12 +109,14 @@ class TrustedEmailValidator(object):
     @classmethod
     @functools.lru_cache(maxsize=None)
     def _load_free_providers(cls):
+        print("called")
         cls._cache_load += 1
         return [host.rstrip() for host in open(cls._data_file_free_providers) if not host.startswith('#')]
 
     @classmethod
     @functools.lru_cache(maxsize=None)
     def _load_common_user_names(cls):
+        print("called")
         cls._cache_load += 1
         return [username.rstrip() for username in open(cls._data_file_common_usernames) if not username.startswith('#')]
 
@@ -145,7 +147,7 @@ class TrustedEmailValidator(object):
             self.email, self.hostname, self.username, datetime.datetime.utcnow()
         )
         self.data_config = TrustedEmailValidator._ConfigData(
-            self.skip_mx_lookup, self.trust_cut_off
+            self.enable_mx_lookup, self.trust_cut_off
         )
 
         is_email = False
@@ -170,7 +172,7 @@ class TrustedEmailValidator(object):
             is_free = self._is_hostname_in_free()
             is_common = self._is_username_in_common_usernames()
 
-            if self.skip_mx_lookup:
+            if not self.enable_mx_lookup:
                 is_valid = True
             else:
                 try:
@@ -240,5 +242,4 @@ class TrustedEmailValidator(object):
 
 if __name__ == "__main__":
     e = TrustedEmailValidator('Bill_990@gmail.com')
-    e.JSON_INDENT = 0
     print(e.as_json())

@@ -6,13 +6,13 @@ from setuptools import setup
 setup(
     name='trusted_email_validator',
     version=__version__,
-    packages=['trusted_email_validator', 'JSONEncoder'],
+    packages=['trusted_email_validator' ],
     author='Shane Devane',
     author_email='shanedevane@gmail.com',
     description='Email Validator with Trust Rules',
     license='GPL',
     keywords='email mx validate dns trust',
-    url='https://github.com/shanedevane/trusted_email_validator',
+    url='https://github.com/shanedevane/trusted-email-validator',
     zip_safe=False,
     test_suite='tests',
 )
