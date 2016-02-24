@@ -4,6 +4,7 @@ import socket
 import json
 import datetime
 import collections
+import functools
 from dns import exception, resolver
 from trusted_email_validator.JSONEncoder import JSONEncoder
 
@@ -34,6 +35,7 @@ class TrustedEmailValidator(object):
 
     _FREE_PROVIDERS_MEMORY = list()
     _COMMON_USERNAMES_MEMORY = list()
+    _cache_load = 0
     _directory = os.path.dirname(__file__)
     _data_file_free_providers = os.path.join(_directory, './data/email_providers_free.txt')
     _data_file_common_usernames = os.path.join(_directory, './data/username_common_groups.txt')
@@ -100,20 +102,21 @@ class TrustedEmailValidator(object):
                 return True
 
     @classmethod
-    def _lazy_read_data_files(cls):
-        if not cls._FREE_PROVIDERS_MEMORY:
-            print("called _FREE_PROVIDERS_MEMORY")
-            cls._FREE_PROVIDERS_MEMORY = \
-                [host.rstrip()
-                 for host in open(cls._data_file_free_providers)
-                 if not host.startswith('#')]
+    def lazy_load_data_files(cls):
+        cls._FREE_PROVIDERS_MEMORY = cls._load_free_providers()
+        cls._COMMON_USERNAMES_MEMORY = cls._load_common_user_names()
 
-        if not cls._COMMON_USERNAMES_MEMORY:
-            print("called _COMMON_USERNAMES_MEMORY")
-            cls._COMMON_USERNAMES_MEMORY = \
-                [username.rstrip()
-                 for username in open(cls._data_file_common_usernames)
-                 if not username.startswith('#')]
+    @classmethod
+    @functools.lru_cache(maxsize=None)
+    def _load_free_providers(cls):
+        cls._cache_load += 1
+        return [host.rstrip() for host in open(cls._data_file_free_providers) if not host.startswith('#')]
+
+    @classmethod
+    @functools.lru_cache(maxsize=None)
+    def _load_common_user_names(cls):
+        cls._cache_load += 1
+        return [username.rstrip() for username in open(cls._data_file_common_usernames) if not username.startswith('#')]
 
     def _run_trust_rules(self):
         self._init_trust_rules()
@@ -134,7 +137,8 @@ class TrustedEmailValidator(object):
         if self.data:
             return self.data
 
-        self._lazy_read_data_files()
+        TrustedEmailValidator.lazy_load_data_files()
+
         keep_processing = True
 
         self.data_meta = TrustedEmailValidator._MetaData(
