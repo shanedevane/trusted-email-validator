@@ -1,6 +1,10 @@
 # there is no magic here
 # list of free providers
 # http://www.joewein.net/spam/spam-freemailer.htm
+# really should write a script to validate
+# these domains as most of them are already expired
+#centermail.com
+#15meg4free.com
 gmail.com
 hotmail.com
 yahoo.com

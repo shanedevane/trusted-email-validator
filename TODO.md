@@ -21,6 +21,10 @@ https://guides.github.com/features/mastering-markdown/
 # or whether or not to email them a welcome email or something else etc. etc.
 
 
+http://www.joewein.net/spam/spam-freemailer.htm
+http://www.hubspot.com/list-of-free-email-providers
+
+
 
 
 https://www.quora.com/Is-there-a-way-to-check-if-an-e-mail-address-is-valid-without-e-mailing-it

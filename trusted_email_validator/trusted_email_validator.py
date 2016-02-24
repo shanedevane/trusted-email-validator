@@ -124,6 +124,7 @@ class TrustedEmailValidator:
         self.trust_rules.append((r'.*?[A-Z][a-z].*?', 'mixed case in username', self.username))
         self.trust_rules.append((r'^(1|2)$', 'username is really small', len(self.username)))
         self.trust_rules.append((r".*?[A-Z-0-9\'_].*?", 'only upper case in username', self.username))
+        self.trust_rules.append((r"^1$", 'email is from a free provider', self.data_is.is_free))
 
     def run_trust_rules(self):
         self.init_trust_rules()
