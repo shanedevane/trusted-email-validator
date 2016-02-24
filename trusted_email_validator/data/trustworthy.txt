@@ -1,0 +1,20 @@
+# this file is to showcase emails that would be 'trustworthy'
+# emails at the top are considered the most trustworthy
+# and progressively getting less trustworthy as we move down
+
+shane.devane@microsoft.com
+sdevane@microsoft.com
+sdevane@ie.microsoft.com
+shane.devane@gmail.com
+sdevane@gmail.com
+
+=== CUT OFF ===
+
+info@microsoft.com
+contact@microsoft.com
+shane1@microsoft.com
+devaner9823@gmail.com
+shane1981@hotmail.com
+Sh4erZZZ@hotmail.com
+_shane_xx90@hotmail.com
+
