@@ -1,12 +1,12 @@
 import re
 import os
 import socket
-import json
-import datetime
 import collections
 import functools
+import json
+import datetime
+import time
 from dns import exception, resolver
-from trusted_email_validator.JSONEncoder import JSONEncoder
 
 
 class TrustedEmailValidator(object):
@@ -103,22 +103,21 @@ class TrustedEmailValidator(object):
 
     @classmethod
     def lazy_load_data_files(cls):
-        cls._FREE_PROVIDERS_MEMORY = cls._load_free_providers()
-        cls._COMMON_USERNAMES_MEMORY = cls._load_common_user_names()
+        # using @functools.lru_cache(maxsize=None) was really slow
+        cls._FREE_PROVIDERS_MEMORY = cls._var_load_free_providers()
+        cls._COMMON_USERNAMES_MEMORY = cls._var_load_common_user_names()
 
     @classmethod
-    @functools.lru_cache(maxsize=None)
-    def _load_free_providers(cls):
-        print("called")
-        cls._cache_load += 1
-        return [host.rstrip() for host in open(cls._data_file_free_providers) if not host.startswith('#')]
+    def _var_load_free_providers(cls):
+        if not cls._FREE_PROVIDERS_MEMORY:
+            cls._cache_load += 1
+            return [host.rstrip() for host in open(cls._data_file_free_providers) if not host.startswith('#')]
 
     @classmethod
-    @functools.lru_cache(maxsize=None)
-    def _load_common_user_names(cls):
-        print("called")
-        cls._cache_load += 1
-        return [username.rstrip() for username in open(cls._data_file_common_usernames) if not username.startswith('#')]
+    def _var_load_common_user_names(cls):
+        if not cls._COMMON_USERNAMES_MEMORY:
+            cls._cache_load += 1
+            return [username.rstrip() for username in open(cls._data_file_common_usernames) if not username.startswith('#')]
 
     def _run_trust_rules(self):
         self._init_trust_rules()
@@ -239,6 +238,13 @@ class TrustedEmailValidator(object):
                           cls=JSONEncoder,
                           # default=json_util.default,
                           indent=self.json_indent)
+
+
+class JSONEncoder(json.JSONEncoder):
+    def default(self, o):
+        if isinstance(o, datetime.datetime):
+            return int(time.mktime(o.timetuple()))
+        return json.JSONEncoder(self, o)
 
 if __name__ == "__main__":
     e = TrustedEmailValidator('Bill_990@gmail.com')
