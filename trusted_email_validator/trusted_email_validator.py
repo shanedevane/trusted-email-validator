@@ -50,6 +50,15 @@ class TrustedEmailValidator(object):
     _AllData = collections.namedtuple('AllData', _meta_fields + _mx_fields + _is_fields +
                                       _trust_fields + _config_fields)
 
+    def _init_trust_rules(self):
+        self.trust_rules.append((r'^1$', 'only 1 mail server reported', self.data_mx.mx_amount))
+        self.trust_rules.append((r'.*?[0-9]+.*?', 'numbers in username', self.username))
+        self.trust_rules.append((r'.*?[A-Z]+[a-z]+.*?', 'mixed case in username', self.username))
+        self.trust_rules.append((r'^(1|2)$', 'username is really small', len(self.username)))
+        self.trust_rules.append((r"^[A-Z-0-9\'_]+$", 'only upper case in username', self.username))
+        self.trust_rules.append((r"^True$", 'email is from a free provider', self.data_is.is_free))
+        self.trust_rules.append((r"^[^A-Za-z]+", 'non letter at start', self.username))
+
     @classmethod
     def is_valid(cls, email, skip_mx=False):
         email_valid = cls(email)
@@ -93,25 +102,18 @@ class TrustedEmailValidator(object):
     @classmethod
     def _lazy_read_data_files(cls):
         if not cls._FREE_PROVIDERS_MEMORY:
+            print("called _FREE_PROVIDERS_MEMORY")
             cls._FREE_PROVIDERS_MEMORY = \
                 [host.rstrip()
                  for host in open(cls._data_file_free_providers)
                  if not host.startswith('#')]
 
         if not cls._COMMON_USERNAMES_MEMORY:
+            print("called _COMMON_USERNAMES_MEMORY")
             cls._COMMON_USERNAMES_MEMORY = \
                 [username.rstrip()
                  for username in open(cls._data_file_common_usernames)
                  if not username.startswith('#')]
-
-    def _init_trust_rules(self):
-        self.trust_rules.append((r'^1$', 'only 1 mail server reported', self.data_mx.mx_amount))
-        self.trust_rules.append((r'.*?[0-9]+.*?', 'numbers in username', self.username))
-        self.trust_rules.append((r'.*?[A-Z]+[a-z]+.*?', 'mixed case in username', self.username))
-        self.trust_rules.append((r'^(1|2)$', 'username is really small', len(self.username)))
-        self.trust_rules.append((r"^[A-Z-0-9\'_]+$", 'only upper case in username', self.username))
-        self.trust_rules.append((r"^True$", 'email is from a free provider', self.data_is.is_free))
-        self.trust_rules.append((r"^[^A-Za-z]+", 'non letter at start', self.username))
 
     def _run_trust_rules(self):
         self._init_trust_rules()
