@@ -6,6 +6,7 @@ import datetime
 from dns import exception, resolver
 import trusted_email_validator.datafields as fields
 import trusted_email_validator.jsonencoder as encoder
+import trusted_email_validator.default_trust_rules as rules
 
 
 class TrustedEmailValidator(object):
@@ -40,13 +41,11 @@ class TrustedEmailValidator(object):
     _data_file_common_usernames = os.path.join(_directory, './data/username_common_groups.txt')
 
     def _init_trust_rules(self):
-        self.trust_rules.append((r'^1$', 'only 1 mail server reported', self.data_mx.mx_amount))
-        self.trust_rules.append((r'.*?[0-9]+.*?', 'numbers in username', self.username))
-        self.trust_rules.append((r'.*?[A-Z]+[a-z]+.*?', 'mixed case in username', self.username))
-        self.trust_rules.append((r'^(1|2)$', 'username is really small', len(self.username)))
-        self.trust_rules.append((r"^[A-Z-0-9\'_]+$", 'only upper case in username', self.username))
-        self.trust_rules.append((r"^True$", 'email is from a free provider', self.data_is.is_free))
-        self.trust_rules.append((r"^[^A-Za-z]+", 'non letter at start', self.username))
+        for rule in rules.TRUST_RULES:
+            (regex, attribute, reason) = rule
+            if hasattr(self.usable_trust_data, attribute):
+                data = getattr(self.usable_trust_data, attribute)
+                self.trust_rules.append((regex, reason, data))
 
     @classmethod
     def is_valid(cls, email, enable_mx=True):
@@ -191,6 +190,9 @@ class TrustedEmailValidator(object):
 
         is_trusted = False
 
+        self.usable_trust_data = fields.SubData._make(
+            list(self.data_meta + self.data_mx + self.data_is + self.data_config))
+
         if keep_processing:
             self._run_trust_rules()
             self.trust_rating = self._calc_trust_rating()
@@ -203,8 +205,8 @@ class TrustedEmailValidator(object):
         )
 
         # _make() for a namedtuple is not protected
-        self.data = fields.Data._make(
-            list(self.data_meta + self.data_mx + self.data_is + self.data_trust + self.data_config))
+        self.data = fields.AllData._make(
+            list(self.data_meta + self.data_mx + self.data_is + self.data_config + self.data_trust))
 
         return self.data
 
