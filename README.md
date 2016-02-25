@@ -7,7 +7,7 @@ Validates an email address using regex and smtp mx record checking and assigns a
 
 
 
-# About
+## About
 
 Yet another email validator. The goal is to accomplish if an email address could be thought of as being 
 'trustworthy' with the output being an object that can be serialised and saved into a data store.
@@ -25,7 +25,7 @@ Use cases:
 - Deciding if further email or sms validation is required to validate the user
 - Deciding if manual intervention is required for accepting an application/order
 - Deciding if the email address is an organisation
- 
+   
 # Usage
 
 #### Quick Usage ####
@@ -44,10 +44,6 @@ if decision:
 >>> firstname@companyname.com is trusted
 >>> 
 ```
-
-# Travis
-
-https://travis-ci.org/shanedevane/trusted-email-validator/builds
 
 
 ## Regex Validation ##
@@ -71,6 +67,11 @@ It is recommended to review them to understand if the business logic is valid fo
 
 This does not try to initiate a connection to the users mail server to see if the email username exists. This is an
 unreliable metric as many mail servers by default do not respond to it. ie. Exchange.
+
+# Install
+
+python setup.py install
+
 
 ## References
 

@@ -1,12 +1,11 @@
 import re
 import os
 import socket
-import collections
-import functools
 import json
 import datetime
-import time
 from dns import exception, resolver
+import trusted_email_validator.datafields as fields
+import trusted_email_validator.jsonencoder as encoder
 
 
 class TrustedEmailValidator(object):
@@ -39,18 +38,6 @@ class TrustedEmailValidator(object):
     _directory = os.path.dirname(__file__)
     _data_file_free_providers = os.path.join(_directory, './data/email_providers_free.txt')
     _data_file_common_usernames = os.path.join(_directory, './data/username_common_groups.txt')
-    _meta_fields = 'email hostname username checked'.split()
-    _mx_fields = 'has_mx mx_record mx_amount bad_lookup lookup_exception'.split()
-    _is_fields = 'is_valid is_email is_free is_common'.split()
-    _trust_fields = 'is_trusted trust_rating'.split()
-    _config_fields = 'enable_mx_lookup trust_cut_off'.split()
-    _MetaData = collections.namedtuple('MetaData', _meta_fields)
-    _MxData = collections.namedtuple('MxData', _mx_fields)
-    _IsData = collections.namedtuple('IsData', _is_fields)
-    _TrustData = collections.namedtuple('TrustData', _trust_fields)
-    _ConfigData = collections.namedtuple('ConfigData', _config_fields)
-    _AllData = collections.namedtuple('AllData', _meta_fields + _mx_fields + _is_fields +
-                                      _trust_fields + _config_fields)
 
     def _init_trust_rules(self):
         self.trust_rules.append((r'^1$', 'only 1 mail server reported', self.data_mx.mx_amount))
@@ -155,10 +142,10 @@ class TrustedEmailValidator(object):
         is_common = False
         keep_processing = True
 
-        self.data_meta = TrustedEmailValidator._MetaData(
+        self.data_meta = fields.MetaData(
             self.email, self.hostname, self.username, datetime.datetime.utcnow()
         )
-        self.data_config = TrustedEmailValidator._ConfigData(
+        self.data_config = fields.ConfigData(
             self.enable_mx_lookup, self.trust_cut_off
         )
 
@@ -194,11 +181,11 @@ class TrustedEmailValidator(object):
                     lookup_mx_exception = str(e)
                     keep_processing = False
 
-        self.data_mx = TrustedEmailValidator._MxData(
+        self.data_mx = fields.MxData(
             has_mx, mx_record, mx_amount, bad_mx_lookup, lookup_mx_exception
         )
 
-        self.data_is = TrustedEmailValidator._IsData(
+        self.data_is = fields.IsData(
             is_valid, is_email, is_free, is_common,
         )
 
@@ -211,12 +198,12 @@ class TrustedEmailValidator(object):
             if self.trust_rating > self.trust_cut_off:
                 is_trusted = True
 
-        self.data_trust = TrustedEmailValidator._TrustData(
+        self.data_trust = fields.TrustData(
             is_trusted, self.trust_rating
         )
 
         # _make() for a namedtuple is not protected
-        self.data = TrustedEmailValidator._AllData._make(
+        self.data = fields.Data._make(
             list(self.data_meta + self.data_mx + self.data_is + self.data_trust + self.data_config))
 
         return self.data
@@ -238,16 +225,9 @@ class TrustedEmailValidator(object):
         d = self.data._asdict()
         d.update(self.mx_records)
         return json.dumps(d,
-                          cls=JSONEncoder,
+                          cls=encoder.JSONEncoder,
                           # default=json_util.default,
                           indent=self.json_indent)
-
-
-class JSONEncoder(json.JSONEncoder):
-    def default(self, o):
-        if isinstance(o, datetime.datetime):
-            return int(time.mktime(o.timetuple()))
-        return json.JSONEncoder(self, o)
 
 if __name__ == "__main__":
     e = TrustedEmailValidator('Bill_990@gmail.com')
