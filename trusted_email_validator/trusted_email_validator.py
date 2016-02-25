@@ -13,6 +13,7 @@ class TrustedEmailValidator(object):
     trust_cut_off = 60
     json_indent = 4
     enable_mx_lookup = True
+    enable_default_trust_rules = True
 
     def __init__(self, email):
         self.email = str(email)
@@ -29,6 +30,7 @@ class TrustedEmailValidator(object):
         self.data_meta = None
         self.data_trust = None
         self.data_config = None
+        self.usable_trust_data = None
 
     simple_email_regex = r".*?(['_a-z0-9-\.]+@['a-z0-9-\.]+\.['a-z0-9]{2,6})"
     email_regex = r"^[_a-z0-9-']+(\.['_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,6})$"
@@ -90,11 +92,12 @@ class TrustedEmailValidator(object):
     @classmethod
     def lazy_load_data_files(cls):
         # using @functools.lru_cache(maxsize=None) was really slow
-        cls._FREE_PROVIDERS_MEMORY = cls._var_load_free_providers()
-        cls._COMMON_USERNAMES_MEMORY = cls._var_load_common_user_names()
+        # opted to cache via class variable/singleton instead
+        cls._FREE_PROVIDERS_MEMORY = cls._load_free_providers()
+        cls._COMMON_USERNAMES_MEMORY = cls._load_common_user_names()
 
     @classmethod
-    def _var_load_free_providers(cls):
+    def _load_free_providers(cls):
         if not cls._FREE_PROVIDERS_MEMORY:
             cls._cache_load += 1
             return [host.rstrip() for host in open(cls._data_file_free_providers) if not host.startswith('#')]
@@ -102,7 +105,7 @@ class TrustedEmailValidator(object):
             return cls._FREE_PROVIDERS_MEMORY
 
     @classmethod
-    def _var_load_common_user_names(cls):
+    def _load_common_user_names(cls):
         if not cls._COMMON_USERNAMES_MEMORY:
             cls._cache_load += 1
             return [username.rstrip() for username in open(cls._data_file_common_usernames) if not username.startswith('#')]
@@ -144,6 +147,7 @@ class TrustedEmailValidator(object):
         self.data_meta = fields.MetaData(
             self.email, self.hostname, self.username, datetime.datetime.utcnow()
         )
+
         self.data_config = fields.ConfigData(
             self.enable_mx_lookup, self.trust_cut_off
         )

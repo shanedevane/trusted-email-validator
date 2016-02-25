@@ -2,29 +2,20 @@
   
 [![Build Status](https://travis-ci.org/shanedevane/trusted-email-validator.svg?branch=master)](https://travis-ci.org/shanedevane/trusted-email-validator)
  
-  
-Validates an email address using regex and smtp mx record checking and assigns a level of 'trust'
+Checks an email address using Regex, MX Data and Trust Rules to assign a Trust Rating value to an email address.
+
+```python
+TrustedEmailValidator.is_trusted('_ShaneDevaneX990_@hotmail.com')
+```
 
 
+## Purpose
+To be able to change a program workflow based on how 'trustworthy' and email address might be and to store the trust data as json into a data store.
 
-## About
-
-Yet another email validator. The goal is to accomplish if an email address could be thought of as being 
-'trustworthy' with the output being an object that can be serialised and saved into a data store.
-
-This uses some of the common approaches for email validation that already exist but brings in additional
-checking via a 'trust' metric that takes the approach of business logic rules that would result in further
-trusting an email address.
-
-# Aim
-
-The purpose is to be able to change the workflow of an application based on the 'trustworthiness' of the email 
-address.
-
-Use cases:
-- Deciding if further email or sms validation is required to validate the user
-- Deciding if manual intervention is required for accepting an application/order
-- Deciding if the email address is an organisation
+Possible use cases:
+- Deciding if further email or sms validation is required to validate an email address
+- Deciding if manual intervention is required for accepting an application/order coming from an email address
+- Deciding if the email address is an organisation vs. a free email provider
    
 # Usage
 
