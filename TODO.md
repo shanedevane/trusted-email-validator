@@ -3,6 +3,17 @@
 # TODO
 # allow command line usage (output to json, console and dict)
 
+# make compatible with
+# https://www.scottbrady91.com/Email-Verification/Python-Email-Verification-Script
+# https://github.com/JoshData/python-email-validator
+# https://github.com/michaelherold/pyIsEmail
+
+# use a simple regex
+# http://stackoverflow.com/questions/8022530/python-check-for-valid-email-address
+
+# great references to flanker
+# https://github.com/mailgun/flanker/blob/master/flanker/addresslib/__init__.py
+
 # MOCK OUT UNIT TESTS INSTEAD OF DOING MX LOOKUP!
 
 # OTHER RULES
